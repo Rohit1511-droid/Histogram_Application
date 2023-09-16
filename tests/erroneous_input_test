@@ -1,0 +1,17 @@
+import pytest
+from histogram import Histogram  # Import Histogram class
+
+def test_erroneous_inputs():
+    # Create a Histogram instance
+    histogram = Histogram()
+
+    # Add erroneous intervals (e.g., overlapping intervals)
+    with pytest.raises(ValueError):
+        # Overlapping interval should raise an error
+        histogram.check_consistency([[3, 4.1], [4, 4.5], [2, 5.0]])
+
+    # Add valid intervals (no errors)
+    try:
+        histogram.check_consistency([[0, 1.1], [3, 4.1], [8.5, 8.7], [31.5, 41.27]])
+    except ValueError:
+        pytest.fail("Adding valid intervals raised an error")
